@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule } from './database.module';
+import { dataSourceOptions } from './database.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { OfficeModule } from './office/office.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -13,7 +13,8 @@ import { Employee } from './office/entities/employee.entity';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    DatabaseModule,
+    TypeOrmModule.forRoot(dataSourceOptions),
+    // DatabaseModule,
     ScheduleModule.forRoot(),
     OfficeModule,
   ],

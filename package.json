@@ -18,10 +18,15 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/database.module.ts",
-    "migration": "npm run typeorm migration:run",
-    "migration:create": "typeorm migration:create -n",
-    "migration:revert": "npm run typeorm migration:revert"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "seed:create": "node ./src/config/scripts/create-seeder.ts",
+    "seed:run": "typeorm-ts-node-commonjs migration:run -d ./src/config/seed.config.ts",
+    "seed:revert": "typeorm-ts-node-commonjs migration:revert -d ./src/config/seed.config.ts",
+    "migration:create": "node ./src/config/scripts/create-migration.ts",
+    "migration:generate": "node ./src/config/scripts/generate-migration.ts",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d ./src/database.module.ts",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d ./src/config/typeorm.config.ts",
+    "migration:test": "typeorm-ts-node-commonjs migration:generate PostRefactoring -d ./src/config/typeorm.config.ts\n"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
